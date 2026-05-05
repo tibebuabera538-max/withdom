@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <div class="registration-container">
+    <h2>SIM registration </h2>
+    <form id="regForm">
+        <label>Full Name</label>
+        <input type="text" id="userName" placeholder="Enter full name" required>
+
+        <label>Phone Number</label>
+        <input type="number" id="userPhone" placeholder="0912345678" required>
+
+        <label>ID Type</label>
+        <select id="idType">
+            <option value="national">National ID</option>
+            <option value="passport">Passport</option>
+        </select>
+
+        <button type="submit">Register Now</button>
+    </form>
+    <div id="statusMessage"></div>
+</div>
+<script src="java.js"></script>
+</body>
+</html>
