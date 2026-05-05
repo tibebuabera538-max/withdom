@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Airtime</title>
+    <style>
+        airtime-container {
+    max-width: 350px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h2 { color: #0056b3; text-align: center; }
+
+.input-group input, #custom-amount {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.amount-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.amount-options button {
+    background: #e1f5fe;
+    border: 1px solid #00b0ff;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buy-btn {
+    width: 100%;
+    background: #00b0ff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="airtime-container">
+    <h2>Buy Airtime</h2>
+    <div class="input-group">
+        <label>Phone Number</label>
+        <input type="text" id="phone" placeholder="0912..." maxlength="10">
+    </div>
+    
+    <div class="amount-options">
+        <button onclick="setAmount(25)">25 ETB</button>
+        <button onclick="setAmount(50)">50 ETB</button>
+        <button onclick="setAmount(100)">100 ETB</button>
+    </div>
+
+    <input type="number" id="custom-amount" placeholder="Enter other amount">
+    
+    <button class="buy-btn" onclick="processPayment()">Recharge Now</button>
+    <p id="status-msg"></p>
+</div>
+<script>
+function setAmount(val) {
+    document.getElementById('custom-amount').value = val;
+}
+
+function processPayment() {
+    const phone = document.getElementById('phone').value;
+    const amount = document.getElementById('custom-amount').value;
+    const msg = document.getElementById('status-msg');
+
+    if (phone.length < 10) {
+        msg.style.color = "red";
+        msg.innerText = "Please enter a valid phone number.";
+    } else if (amount <= 0) {
+        msg.style.color = "red";
+        msg.innerText = "Please enter an amount.";
+    } else {
+        msg.style.color = "green";
+        msg.innerText = `Success! ${amount} ETB sent to ${phone}.`;
+        // In a real app, this is where you'd call an API.
+    }
+}
+</script>
+</body>
+</html>
