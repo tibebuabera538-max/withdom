@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telebirr</title>
+    <style>
+        :root {
+            --tb-blue: #0056b3;
+            --tb-yellow: #ffcc00;
+            --bg-gray: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: green;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .phone-screen {
+            width: 360px;
+            height: 640px;
+            background: var(--bg-gray);
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+       
+        .header {
+            background: var(--tb-blue);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 0 0 30px 30px;
+            text-align: center;
+        }
+
+        .balance-label {
+            
+           font-size: 14px; 
+            opacity: 0.9; 
+        }
+        
+        .balance-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        #balance-text {
+            font-size: 28px;
+             font-weight: bold;
+             }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .service {
+            background: white;
+            padding: 15px 5px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-decoration: none;
+        }
+
+        .service:active { 
+            transform: scale(0.95);
+         }
+        .icon { font-size: 24px; 
+            margin-bottom: 5px;
+         }
+        .service p {
+             font-size: 12px;
+             margin: 0;
+            font-weight: 500; }
+
+        
+        #transfer-box {
+            background: white;
+            margin: 0 20px;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-send {
+            background: var(--tb-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .link{
+            text-align: center;
+            border: 2px solid;
+            background-color: wheat;
+            color: black;
+            text-decoration: none;
+            text-transform: none;
+
+
+
+        }
+        .link:hover{
+            background-color: green;
+            
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-screen">
+    <div class="header">
+        <p class="balance-label">Available Balance</p>
+        <div class="balance-row">
+            <span id="balance-text">ETB 5,000.00</span>
+            <span id="toggle-eye" style="cursor:pointer">👁️</span>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="service" onclick="showTransfer()">
+            <div class="icon">💸</div>
+            <p>Send Money</p>
+        </div>
+        <div class="service">
+            <div class="icon">📱</div>
+           <a href="index2.html">Airtime</a>
+        </div>
+        <div class="service">
+            <div class="icon">🛒</div>
+            <p>Pay Merchant</p>
+        </div>
+    </div>
+
+  
+    <div id="transfer-box">
+        <h3>Send Money</h3>
+        <input type="number" id="amount-input" placeholder="Enter Amount">
+        <button class="btn-send" onclick="processPayment()">Confirm Send</button>
+    </div>
+    <div class="link">
+    <a href="index3.html">up to first page</a>
+
+</div>
+
+
+<script>
+    
+    let currentBalance = 5000.00;
+    let isVisible = true;
+
+    const balanceDisplay = document.getElementById('balance-text');
+    const eyeBtn = document.getElementById('toggle-eye');
+    const transferBox = document.getElementById('transfer-box');
+
+   
+    eyeBtn.addEventListener('click', () => {
+       
+        if (isVisible) {
+            balanceDisplay.innerText = `ETB ${currentBalance.toFixed(2)}`;
+            eyeBtn.innerText = "👁️";
+        } else {
+            balanceDisplay.innerText = "ETB ******";
+            eyeBtn.innerText = "🙈";
+        }
+    });
+
+    function showTransfer() {
+        transferBox.style.display = "block";
+    }
+
+    function processPayment() {
+        const input = document.getElementById('amount-input');
+        const amount = parseFloat(input.value);
+
+        if (isNaN(amount) || amount <= 0) {
+            alert("Please enter a valid amount.");
+        } else if (amount > currentBalance) {
+            alert("Insufficient balance!");
+        } else {
+            currentBalance -= amount; 
+            balanceDisplay.innerText = `ETB ${currentBalance.toFixed(2)}`;
+            alert(`Successfully sent ETB ${amount}!`);
+            input.value = "";
+            transferBox.style.display = "none"; 
+        }
+    }
+</script>
+
+</body>
+</html>
